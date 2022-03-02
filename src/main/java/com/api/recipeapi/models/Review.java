@@ -28,20 +28,10 @@ public class Review {
     private String description;
 
     public void setRating(int rating) {
-        if (rating <= 0 || rating > 10) {
-            throw new IllegalStateException("Rating must be between 0 and 10.");
-        }
         this.rating = rating;
     }
-    public int getRating() {            //TODO part of the "averageRating" process
+    public int getRating() {
         return this.rating;
-    }
-
-    public void checkUser() throws IllegalStateException {      //TODO beginning of user validation for review and recipe
-
-        if (username.equals()) {
-            throw new IllegalStateException("We know you love your own recipe, but you can't submit a review for it!");
-        }
     }
 
 }

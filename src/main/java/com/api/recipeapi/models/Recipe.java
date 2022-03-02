@@ -81,6 +81,18 @@ public class Recipe {
         } else if (steps.size() == 0) {
             throw new IllegalStateException("You have to include at least one step for your recipe!");
         }
+
+        if(name == null) {
+            throw new IllegalStateException("You must include a name for your recipe!");
+        }
+
+        if(userName == null) {
+            throw new IllegalStateException("Your recipe must include your user name!");
+        }
+        if (minutesToMake == null) {
+            throw new IllegalStateException("You must include the total time it takes to prepare this dish (in minutes)!");
+        }
+
     }
 
     public void generateLocationURI() {

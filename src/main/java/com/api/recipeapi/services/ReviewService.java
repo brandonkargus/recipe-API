@@ -50,8 +50,24 @@ public class ReviewService {
         return reviews;
     }
 
-    public Recipe postNewReview(Review review, Long recipeId) throws NoSuchRecipeException, NoSuchReviewException {
+    public Recipe postNewReview(Review review, Long recipeId) throws NoSuchRecipeException, NoSuchReviewException, IllegalStateException {
         Recipe recipe = recipeService.getRecipeById(recipeId);
+
+        if(review.getUsername() == null) {
+            throw new IllegalStateException("A review must contain a user name.");
+        }
+
+        if(review.getUsername().equals(recipe.getUserName())) {
+            throw new IllegalStateException("We know you love your recipe, but you can't submit a review for it!");
+        }
+
+        if(review.getRating() == 0) {
+            throw new IllegalStateException("You must submit a rating (1-10) with the review.");
+        }
+
+        if(review.getRating() < 1 || review.getRating() > 10) {
+            throw new IllegalStateException("Your rating must be between 1 and 10.");
+        }
         recipe.getReviews().add(review);
         recipe.setAverageReviewRating();
         recipeService.updateRecipe(recipe, false);
